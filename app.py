@@ -46,6 +46,8 @@ def index():
 
                 if text == "我的名字":
                     payload["messages"] = [getNameEmojiMessage()]
+                elif text == "開始寫日記":
+                    payload["messages"] = [writingdiary()]
                 elif text == "出去玩囉":
                     payload["messages"] = [getPlayStickerMessage()]
                 elif text == "台北101":
@@ -262,6 +264,10 @@ def getTodayCovid19Message():
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
+
+
+def writingdiary():
+    return F"開始寫吧!"
 
 
 @app.route('/upload_file', methods=['POST'])
