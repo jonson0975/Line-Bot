@@ -67,12 +67,8 @@ def index():
                             }
                         ]
                 elif text == "開始寫日記":
-                    payload["messages"] = [
-                                                    {
-                                "type": "text",
-                                "text": writingdiary()
-                            }
-                        ]
+                    payload["messages"] = [writingdiary()]
+                    
                 elif text == "主選單":
                     payload["messages"] = [
                             {
@@ -275,7 +271,12 @@ def allowed_file(filename):
 
 
 def writingdiary():
-    message = dict("開始寫吧")
+    message = [
+        {
+            "type":"text",
+            "text":開始寫吧
+            }
+        ]
     return message
 
 
