@@ -267,6 +267,7 @@ def allowed_file(filename):
 
 
 def writingdiary():
+    response = requests.post("https://api.line.me/v2/bot/message/reply", headers=HEADER, data=json.dumps(payload))
     return F"開始寫吧!"
 
 
