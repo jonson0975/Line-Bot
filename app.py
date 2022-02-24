@@ -67,7 +67,13 @@ def index():
                             }
                         ]
                 elif text == "開始寫日記":
-                    payload["messages"] = [writingdiary()]
+                    payload["messages"] = [
+                            {
+                                "type":"text",
+                                "text":"開始寫吧"
+                                
+                             }
+                        ]
                     
                 elif text == "主選單":
                     payload["messages"] = [
