@@ -204,6 +204,9 @@ def getCallCarMessage(data):
 
 def getPlayStickerMessage():
     message = dict()
+    message["type"] = "sticker"
+    message["packageId"] = "446"
+    message["stickerId"] = "1988"
     return message
 
 
@@ -267,8 +270,8 @@ def allowed_file(filename):
 
 
 def writingdiary():
-    response = requests.post("https://api.line.me/v2/bot/message/reply", headers=HEADER, data=json.dumps(payload))
-    return F"開始寫吧!"
+    message = dict("開始寫吧")
+    return message
 
 
 @app.route('/upload_file', methods=['POST'])
