@@ -274,7 +274,7 @@ def writingdiary():
     message = [
         {
             "type":"text",
-            "text":開始寫吧
+            "text":"開始寫吧"
             }
         ]
     return message
