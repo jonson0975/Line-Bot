@@ -46,8 +46,6 @@ def index():
 
                 if text == "我的名字":
                     payload["messages"] = [getNameEmojiMessage()]
-                elif text == "開始寫日記":
-                    payload["messages"] = [writingdiary()]
                 elif text == "出去玩囉":
                     payload["messages"] = [getPlayStickerMessage()]
                 elif text == "台北101":
@@ -66,6 +64,13 @@ def index():
                             {
                                 "type": "text",
                                 "text": getTodayCovid19Message()
+                            }
+                        ]
+                elif text == "開始寫日記":
+                    payload["messages"] = [
+                                                    {
+                                "type": "text",
+                                "text": writingdiary()
                             }
                         ]
                 elif text == "主選單":
