@@ -74,14 +74,14 @@ def index():
                                 
                              }
                         ]
-                    if text == "diary":
-                        payload["messages"] = [
-                                {
-                                    "type":"text",
-                                    "text":"分數"
+                                if text == "diary":
+                                    payload["messages"] = [
+                                            {
+                                                "type":"text",
+                                                "text":"分數"
                                 
-                                }
-                            ]  
+                                            }
+                                        ]  
                 elif text == "主選單":
                     payload["messages"] = [
                             {
