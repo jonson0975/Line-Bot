@@ -74,7 +74,14 @@ def index():
                                 
                              }
                         ]
-                    
+                elif text == "diary":
+                    payload["messages"] = [
+                            {
+                                "type":"text",
+                                "text":"分數"
+                                
+                             }
+                        ]  
                 elif text == "主選單":
                     payload["messages"] = [
                             {
@@ -274,16 +281,6 @@ def getTodayCovid19Message():
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
-
-
-def writingdiary():
-    message = [
-        {
-            "type":"text",
-            "text":"開始寫吧"
-            }
-        ]
-    return message
 
 
 @app.route('/upload_file', methods=['POST'])
