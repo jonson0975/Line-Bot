@@ -44,28 +44,10 @@ def index():
             if events[0]["message"]["type"] == "text":
                 text = events[0]["message"]["text"]
 
-                if text == "我的名字":
-                    payload["messages"] = [getNameEmojiMessage()]
-                elif text == "出去玩囉":
-                    payload["messages"] = [getPlayStickerMessage()]
                 elif text == "台北101":
                     payload["messages"] = [getTaipei101ImageMessage(),
                                            getTaipei101LocationMessage(),
                                            getMRTVideoMessage()]
-                elif text == "quoda":
-                    payload["messages"] = [
-                            {
-                                "type": "text",
-                                "text": getTotalSentMessageCount()
-                            }
-                        ]
-                elif text == "今日確診人數":
-                    payload["messages"] = [
-                            {
-                                "type": "text",
-                                "text": getTodayCovid19Message()
-                            }
-                        ]
                 elif text == "開始寫日記":
                     payload["messages"] = [
                             {
@@ -173,26 +155,6 @@ def sendTextMessageToMe():
     return 'OK'
 
 
-def getNameEmojiMessage():
-    lookUpStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
-    productId = "5ac21a8c040ab15980c9b43f"
-    name = "Jonson"
-    message = dict()
-    message["type"] = "text"
-    message["text"] = "".join("$" for r in range(len(name)))
-    emojis_list = list()
-    for i, nChar in enumerate(name):
-        emojis_list.append(
-            {
-              "index": i,
-              "productId": productId,
-              "emojiId": f"{lookUpStr.index(nChar) + 1 :03}"
-            }
-        )
-    message["emojis"] = emojis_list
-    return message
-
-
 def getCarouselMessage(data):
     message = dict()
     return message
@@ -205,14 +167,6 @@ def getLocationConfirmMessage(title, latitude, longitude):
 
 def getCallCarMessage(data):
     message = dict()
-    return message
-
-
-def getPlayStickerMessage():
-    message = dict()
-    message["type"] = "sticker"
-    message["packageId"] = "446"
-    message["stickerId"] = "1988"
     return message
 
 
@@ -260,19 +214,6 @@ def replyMessage(payload):
 def pushMessage(payload):
     response = {}
     return 'OK'
-
-
-def getTotalSentMessageCount():
-    response = requests.get("https://api.line.me/v2/bot/message/quota/consumption",headers=HEADER)
-    return response.json()["totalUsage"]
-
-
-def getTodayCovid19Message():
-    response = requests.get("https://covid-19.nchc.org.tw/api/covid19?CK=covid-19@nchc.org.tw&querydata=4001&limited=TWN")
-    date = response.json()[0]["a04"]
-    total_count = response.json()[0]["a05"]
-    count = response.json()[0]["a06"]
-    return F"日期：{date}, 人數：{count}, 確診總人數：{total_count}"
 
 
 def allowed_file(filename):
