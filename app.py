@@ -41,26 +41,6 @@ def index():
                 text = events[0]["message"]["text"]
                 if text == "我的名字":
                     payload["messages"] = [getNameEmojiMessage()]
-                elif text == "出去玩囉":
-                    payload["messages"] = [getPlayStickerMessage()]
-                elif text == "台北101":
-                    payload["messages"] = [getTaipei101ImageMessage(),
-                                           getTaipei101LocationMessage(),
-                                           getMRTVideoMessage()]
-                elif text == "quoda":
-                    payload["messages"] = [
-                            {
-                                "type": "text",
-                                "text": getTotalSentMessageCount()
-                            }
-                        ]
-                elif text == "今日確診人數":
-                    payload["messages"] = [
-                            {
-                                "type": "text",
-                                "text": getTodayCovid19Message()
-                            }
-                        ]
                 elif text == "開始寫日記":
                     payload["messages"] = [
                             {
@@ -68,35 +48,6 @@ def index():
                                 "text":"開始寫吧"
 
                              }
-                        ]
-                elif text == "主選單":
-                    payload["messages"] = [
-                            {
-                                "type": "template",
-                                "altText": "This is a buttons template",
-                                "template": {
-                                  "type": "buttons",
-                                  "title": "Menu",
-                                  "text": "Please select",
-                                  "actions": [
-                                      {
-                                        "type": "message",
-                                        "label": "我的名字",
-                                        "text": "我的名字"
-                                      },
-                                      {
-                                        "type": "message",
-                                        "label": "今日確診人數",
-                                        "text": "今日確診人數"
-                                      },
-                                      {
-                                        "type": "uri",
-                                        "label": "聯絡我",
-                                        "uri": f"tel:{my_phone}"
-                                      }
-                                  ]
-                              }
-                            }
                         ]
                 else:
                     payload["messages"] = [
