@@ -46,7 +46,15 @@ def index():
                             {
                                 "type":"text",
                                 "text":"開始寫吧"
-
+                             }
+                        ]
+                elif text == "我要聯繫":
+                    payload["messages"] = [
+                            {
+                                "type":"text",
+                                "text":"1. 24小時免付費安心專線-1925
+                                        2. 24小時生命線-1995
+                                        3. 張老師-1980"
                              }
                         ]
                 else:
