@@ -66,7 +66,7 @@ def index():
                     payload["messages"] = [
                             {
                                 "type": "text",
-                                "text": random.randint(1,10)
+                                "text": random.randint(1,5)
                             }
                         ]
                 replyMessage(payload)
