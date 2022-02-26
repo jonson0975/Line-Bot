@@ -8,6 +8,7 @@ import json
 import configparser
 import os
 from urllib import parse
+import random
 app = Flask(__name__, static_url_path='/static')
 UPLOAD_FOLDER = 'static'
 ALLOWED_EXTENSIONS = set(['pdf', 'png', 'jpg', 'jpeg', 'gif'])
@@ -101,7 +102,7 @@ def index():
                     payload["messages"] = [
                             {
                                 "type": "text",
-                                "text": text
+                                "text": random.randint(1,10)
                             }
                         ]
                 replyMessage(payload)
