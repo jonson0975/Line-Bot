@@ -55,6 +55,13 @@ def index():
                                 "text":"https://heho.com.tw/archives/163223"
                              }
                         ]
+                elif text == "每日一句":
+                    payload["messages"] = [
+                            {
+                                "type":"text",
+                                "text":"時常提醒自己是有人愛的、不孤單的，快樂就會油然而生。"
+                             }
+                        ]
                 else:
                     payload["messages"] = [
                             {
