@@ -52,9 +52,7 @@ def index():
                     payload["messages"] = [
                             {
                                 "type":"text",
-                                "text":"1.24小時免付費安心專線-1925\n
-                                        2.24小時生命線-1995\n
-                                        3.張老師-1980"
+                                "text":"https://heho.com.tw/archives/163223"
                              }
                         ]
                 else:
