@@ -119,6 +119,48 @@ def pretty_echo(event):
         event.reply_token,
         TextSendMessage(text=event.message.text)
         )
+def handle_message(event):
+    msg = event.message.text
+    if "記錄" in msg:
+        try:
+            record_list = prepare_record(msg)
+            result = insert_record(record_list)
+
+            line_bot_api.reply_message(
+                event.reply_token,
+                TextSendMessage(text=result)
+            )
+        except:
+            line_bot_api.reply_message(
+                event.reply_token,
+                TextSendMessage(text="資料上傳失敗")
+            )
+    elif "查詢" in msg:
+        result = select_record()
+
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=result)
+        )
+    elif "刪除" in msg:
+        result = delete_record(msg)
+
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=result)
+        ) 
+    elif "更新" in msg:
+        result = update_record(msg)
+
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=result)
+        ) 
+    else:
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=msg)
+        )
 @app.route("/sendTextMessageToMe", methods=['POST'])
 def sendTextMessageToMe():
     pushMessage({})
@@ -195,49 +237,6 @@ def getTodayCovid19Message():
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
-@handler.add(MessageEvent, message=TextMessage)
-def handle_message(event):
-    msg = event.message.text
-    if "記錄" in msg:
-        try:
-            record_list = prepare_record(msg)
-            result = insert_record(record_list)
-
-            line_bot_api.reply_message(
-                event.reply_token,
-                TextSendMessage(text=result)
-            )
-        except:
-            line_bot_api.reply_message(
-                event.reply_token,
-                TextSendMessage(text="資料上傳失敗")
-            )
-    elif "查詢" in msg:
-        result = select_record()
-
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=result)
-        )
-    elif "刪除" in msg:
-        result = delete_record(msg)
-
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=result)
-        ) 
-    elif "更新" in msg:
-        result = update_record(msg)
-
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=result)
-        ) 
-    else:
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=msg)
-        )
 @app.route('/upload_file', methods=['POST'])
 def upload_file():
     payload = dict()
