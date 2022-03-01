@@ -1,6 +1,6 @@
 import os
 import psycopg2
-
+from linebot.models.responses import Content
 
 def prepare_record(msg):
     text_list = msg.split('@')
