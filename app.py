@@ -9,6 +9,8 @@ import os
 from urllib import parse
 import random
 from linebot.models import *
+import psycopg2
+from linebot.models.responses import Content
 app = Flask(__name__, static_url_path='/static')
 UPLOAD_FOLDER = 'static'
 ALLOWED_EXTENSIONS = set(['pdf', 'png', 'jpg', 'jpeg', 'gif'])
@@ -62,6 +64,20 @@ def index():
                                 "text":"時常提醒自己是有人愛的、不孤單的，快樂就會油然而生。"
                              }
                         ]
+                elif "記錄" in text:
+                     try:
+                        record_list = prepare_record(text)
+                        result = insert_record(record_list)
+                        
+                        line_bot_api.reply_message(
+                            event.reply_token,
+                            TextSendMessage(text=result)
+                        )
+                     except:
+                        line_bot_api.reply_message(
+                            event.reply_token,
+                            TextSendMessage(text="資料上傳失敗")
+                        )
                 else:
                     payload["messages"] = [
                             {
@@ -116,6 +132,45 @@ def pretty_echo(event):
         event.reply_token,
         TextSendMessage(text=event.message.text)
         )
+def prepare_record(text):
+    text_list = text.split('@')   
+
+    record_list = []
+
+    for i in text_list[1:]:
+        temp_list = i.split("\")
+
+        userid = temp_list[0]
+        writingdate = temp_list[1]
+        diary = temp_list[2]
+        
+        record = (userid, writingdate, diary)
+        record_list.append(record)
+        
+    return record_list
+def insert_record(record_list):
+    DATABASE_URL = os.environ["DATABASE_URL"]
+    
+    conn   = psycopg2.connect(DATABASE_URL, sslmode="require")
+    cursor = conn.cursor()
+
+    table_columns = "(userid, writingdate, diary)"
+    postgres_insert_query = f"""INSERT INTO test_table {table_columns} VALUES (%s,%s,%s)"""
+
+    try:
+        cursor.executemany(postgres_insert_query, record_list)
+    except:
+        cursor.execute(postgres_insert_query, record_list)
+    
+    conn.commit()
+
+    # 要回傳的文字
+    message = f"{cursor.rowcount}筆資料成功匯入資料庫囉"
+
+    cursor.close()
+    conn.close()
+
+    return message
 @app.route("/sendTextMessageToMe", methods=['POST'])
 def sendTextMessageToMe():
     pushMessage({})
