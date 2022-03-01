@@ -23,7 +23,7 @@ def prepare_record(msg):
 
 # 將資料匯入資料庫
 def insert_record(record_list):
-    DATABASE_URL = os.environ["DATABASE_URL"]
+    DATABASE_URL = os.environ["postgres://fmhvtfdwhmriha:6fa7397e002c2217f7975b7fe04e8348d7f14966c49137f500b6e9ba3f22b796@ec2-35-175-68-90.compute-1.amazonaws.com:5432/dahggat84j3plu"]
     
     conn   = psycopg2.connect(DATABASE_URL, sslmode="require")
     cursor = conn.cursor()
@@ -49,7 +49,7 @@ def insert_record(record_list):
 
 # 查詢資料
 def select_record():
-    DATABASE_URL = os.environ["DATABASE_URL"]
+    DATABASE_URL = os.environ["postgres://fmhvtfdwhmriha:6fa7397e002c2217f7975b7fe04e8348d7f14966c49137f500b6e9ba3f22b796@ec2-35-175-68-90.compute-1.amazonaws.com:5432/dahggat84j3plu"]
 
     conn = psycopg2.connect(DATABASE_URL, sslmode='require')
     cursor = conn.cursor()
@@ -74,7 +74,7 @@ def select_record():
 # 刪除資料
 def delete_record(msg):
     msg = msg.split(" ")[1]
-    DATABASE_URL = os.environ["DATABASE_URL"]
+    DATABASE_URL = os.environ["postgres://fmhvtfdwhmriha:6fa7397e002c2217f7975b7fe04e8348d7f14966c49137f500b6e9ba3f22b796@ec2-35-175-68-90.compute-1.amazonaws.com:5432/dahggat84j3plu"]
 
     conn = psycopg2.connect(DATABASE_URL, sslmode='require')
     cursor = conn.cursor()
@@ -97,7 +97,7 @@ def delete_record(msg):
 
 # 更新資料
 def update_record(msg):
-    DATABASE_URL = os.environ["DATABASE_URL"]
+    DATABASE_URL = os.environ["postgres://fmhvtfdwhmriha:6fa7397e002c2217f7975b7fe04e8348d7f14966c49137f500b6e9ba3f22b796@ec2-35-175-68-90.compute-1.amazonaws.com:5432/dahggat84j3plu"]
 
     conn = psycopg2.connect(DATABASE_URL, sslmode='require')
     cursor = conn.cursor()
