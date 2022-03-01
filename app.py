@@ -138,7 +138,7 @@ def prepare_record(text):
     record_list = []
 
     for i in text_list[1:]:
-        temp_list = i.split("\")
+        temp_list = i.split(" ")
 
         userid = temp_list[0]
         writingdate = temp_list[1]
