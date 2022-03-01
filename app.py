@@ -8,10 +8,7 @@ import configparser
 import os
 from urllib import parse
 import random
-import psycopg2
-import re
-from database import *
-from linebot.models import *
+from linebot.models import MessageEvent, TextMessage, TextSendMessage
 app = Flask(__name__, static_url_path='/static')
 UPLOAD_FOLDER = 'static'
 ALLOWED_EXTENSIONS = set(['pdf', 'png', 'jpg', 'jpeg', 'gif'])
@@ -118,48 +115,6 @@ def pretty_echo(event):
     line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(text=event.message.text)
-        )
-def handle_message(event):
-    msg = event.message.text
-    if "記錄" in msg:
-        try:
-            record_list = prepare_record(msg)
-            result = insert_record(record_list)
-
-            line_bot_api.reply_message(
-                event.reply_token,
-                TextSendMessage(text=result)
-            )
-        except:
-            line_bot_api.reply_message(
-                event.reply_token,
-                TextSendMessage(text="資料上傳失敗")
-            )
-    elif "查詢" in msg:
-        result = select_record()
-
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=result)
-        )
-    elif "刪除" in msg:
-        result = delete_record(msg)
-
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=result)
-        ) 
-    elif "更新" in msg:
-        result = update_record(msg)
-
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=result)
-        ) 
-    else:
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=msg)
         )
 @app.route("/sendTextMessageToMe", methods=['POST'])
 def sendTextMessageToMe():
