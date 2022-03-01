@@ -1,6 +1,5 @@
 import os
 import psycopg2
-from linebot.models.responses import Content
 
 def prepare_record(msg):
     text_list = msg.split('@')
@@ -22,7 +21,7 @@ def prepare_record(msg):
 
 # 將資料匯入資料庫
 def insert_record(record_list):
-    DATABASE_URL = os.environ["DATABASE_URL"]
+    DATABASE_URL = os.environ["postgres://fmhvtfdwhmriha:6fa7397e002c2217f7975b7fe04e8348d7f14966c49137f500b6e9ba3f22b796@ec2-35-175-68-90.compute-1.amazonaws.com:5432/dahggat84j3plu"]
 
     conn = psycopg2.connect(DATABASE_URL, sslmode="require")
     cursor = conn.cursor()
@@ -46,74 +45,74 @@ def insert_record(record_list):
     return message
 
 
-# 查詢資料
-def select_record():
-    DATABASE_URL = os.environ["DATABASE_URL"]
+# # 查詢資料
+# def select_record():
+#     DATABASE_URL = os.environ["DATABASE_URL"]
 
-    conn = psycopg2.connect(DATABASE_URL, sslmode='require')
-    cursor = conn.cursor()
+#     conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+#     cursor = conn.cursor()
 
-    postgres_select_query = f"""SELECT * FROM test_table ORDER BY id"""
+#     postgres_select_query = f"""SELECT * FROM test_table ORDER BY id"""
 
-    cursor.execute(postgres_select_query)
-    record = str(cursor.fetchall())
+#     cursor.execute(postgres_select_query)
+#     record = str(cursor.fetchall())
 
-    content = ""
-    record = record.split("),")
+#     content = ""
+#     record = record.split("),")
 
-    for number, r in enumerate(record):
-        content += f"第{number + 1}筆資料\n{r}\n"
+#     for number, r in enumerate(record):
+#         content += f"第{number + 1}筆資料\n{r}\n"
 
-    cursor.close()
-    conn.close()
+#     cursor.close()
+#     conn.close()
 
-    return content
-
-
-# 刪除資料
-def delete_record(msg):
-    msg = msg.split(" ")[1]
-    DATABASE_URL = os.environ["DATABASE_URL"]
-
-    conn = psycopg2.connect(DATABASE_URL, sslmode='require')
-    cursor = conn.cursor()
-
-    postgres_delete_query = f"""DELETE FROM test_table WHERE id = {msg}"""
-
-    cursor.execute(postgres_delete_query)
-    conn.commit()
-
-    content = ""
-
-    count = cursor.rowcount
-    content += f"{count}筆資料成功從資料庫移除囉"
-
-    cursor.close()
-    conn.close()
-
-    return content
+#     return content
 
 
-# 更新資料
-def update_record(msg):
-    DATABASE_URL = os.environ["DATABASE_URL"]
+# # 刪除資料
+# def delete_record(msg):
+#     msg = msg.split(" ")[1]
+#     DATABASE_URL = os.environ["DATABASE_URL"]
 
-    conn = psycopg2.connect(DATABASE_URL, sslmode='require')
-    cursor = conn.cursor()
+#     conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+#     cursor = conn.cursor()
 
-    msg_list = msg.split(" ")
-    column = msg_list[1]
-    origin = msg_list[2]
-    new = msg_list[3]
+#     postgres_delete_query = f"""DELETE FROM test_table WHERE id = {msg}"""
 
-    postgres_update_query = f"""UPDATE test_table set {column} = %s WHERE {column} = %s"""
+#     cursor.execute(postgres_delete_query)
+#     conn.commit()
 
-    cursor.execute(postgres_update_query, (new, origin))
-    conn.commit()
+#     content = ""
 
-    content = ""
+#     count = cursor.rowcount
+#     content += f"{count}筆資料成功從資料庫移除囉"
 
-    count = cursor.rowcount
-    content += f"{count}筆資料成功從資料庫更新囉"
+#     cursor.close()
+#     conn.close()
 
-    return content
+#     return content
+
+
+# # 更新資料
+# def update_record(msg):
+#     DATABASE_URL = os.environ["DATABASE_URL"]
+
+#     conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+#     cursor = conn.cursor()
+
+#     msg_list = msg.split(" ")
+#     column = msg_list[1]
+#     origin = msg_list[2]
+#     new = msg_list[3]
+
+#     postgres_update_query = f"""UPDATE test_table set {column} = %s WHERE {column} = %s"""
+
+#     cursor.execute(postgres_update_query, (new, origin))
+#     conn.commit()
+
+#     content = ""
+
+#     count = cursor.rowcount
+#     content += f"{count}筆資料成功從資料庫更新囉"
+
+#     return content
