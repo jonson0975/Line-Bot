@@ -65,19 +65,7 @@ def index():
                              }
                         ]
                 elif "記錄" in text:
-                     try:
-                        record_list = prepare_record(text)
-                        result = insert_record(record_list)
-                        
-                        line_bot_api.reply_message(
-                            event.reply_token,
-                            TextSendMessage(text=result)
-                        )
-                     except:
-                        line_bot_api.reply_message(
-                            event.reply_token,
-                            TextSendMessage(text="資料上傳失敗")
-                        )
+                    payload["messages"] = [handle_message()]
                 else:
                     payload["messages"] = [
                             {
@@ -132,8 +120,26 @@ def pretty_echo(event):
         event.reply_token,
         TextSendMessage(text=event.message.text)
         )
-def prepare_record(text):
-    text_list = text.split('@')   
+def handle_message(event):
+    msg = event.message.text
+    if "記錄" in msg:
+        try:
+            record_list = prepare_record(msg)
+            result = insert_record(record_list)
+
+            line_bot_api.reply_message(
+                event.reply_token,
+                TextSendMessage(text=result)
+            )
+        except:
+            line_bot_api.reply_message(
+                event.reply_token,
+                TextSendMessage(text="資料上傳失敗")
+            )
+    else:
+        print("Wrong")
+def prepare_record(msg):
+    text_list = msg.split('@')   
 
     record_list = []
 
