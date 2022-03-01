@@ -155,7 +155,7 @@ def prepare_record(msg):
         
     return record_list
 def insert_record(record_list):
-    DATABASE_URL = os.environ["DATABASE_URL"]
+    DATABASE_URL = os.environ["postgres://fmhvtfdwhmriha:6fa7397e002c2217f7975b7fe04e8348d7f14966c49137f500b6e9ba3f22b796@ec2-35-175-68-90.compute-1.amazonaws.com:5432/dahggat84j3plu"]
     
     conn   = psycopg2.connect(DATABASE_URL, sslmode="require")
     cursor = conn.cursor()
