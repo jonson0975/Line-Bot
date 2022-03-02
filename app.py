@@ -45,7 +45,7 @@ def index():
                     payload["messages"] = [
                             {
                                 "type":"text",
-                                "text":"http://10.1.0.189:5000"
+                                "text":"開始寫吧"
                              }
                         ]
                 elif text == "我要聯繫":
