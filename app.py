@@ -67,10 +67,7 @@ def handle_message(event):
             TextSendMessage(text=result)
         ) 
     else:
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=msg)
-        )
+        print("Wrong")
 
 
 if __name__ == "__main__":
