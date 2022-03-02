@@ -1,11 +1,9 @@
-import re
 import os
 
-from database import *
 from linebot.models import *
+from flask import Flask, request, abort
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
-from flask import Flask, request, abort, render_template
 
 
 app = Flask(__name__)
@@ -15,6 +13,7 @@ line_bot_api    = LineBotApi(Channel_Access_Token)
 Channel_Secret  = 'f633360451f8659118a5fbbef0e218d0'
 handler = WebhookHandler(Channel_Secret)
 
+# handle request from "/callback" 
 @app.route("/callback", methods=['POST'])
 def callback():
     signature = request.headers['X-Line-Signature']
@@ -31,44 +30,11 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     msg = event.message.text
-    if "記錄" in msg:
-        try:
-            record_list = prepare_record(msg)
-            result = insert_record(record_list)
-
-            line_bot_api.reply_message(
-                event.reply_token,
-                TextSendMessage(text=result)
-            )
-        except:
-            line_bot_api.reply_message(
-                event.reply_token,
-                TextSendMessage(text="資料上傳失敗")
-            )
-    elif "查詢" in msg:
-        result = select_record()
-
+    if event.source.user_id != " ":
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text=result)
+            TextSendMessage(text=msg)
         )
-    elif "刪除" in msg:
-        result = delete_record(msg)
-
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=result)
-        ) 
-    elif "更新" in msg:
-        result = update_record(msg)
-
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=result)
-        ) 
-    else:
-        print("Wrong")
-
 
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
