@@ -45,7 +45,7 @@ def index():
                     payload["messages"] = [
                             {
                                 "type":"text",
-                                "text":"開始寫吧"
+                                "text":"https://liff.line.me/1656936446-QmxeAVXk"
                              }
                         ]
                 elif text == "我要聯繫":
