@@ -82,7 +82,6 @@ def handle_message(event):
 
 def prepare_record(msg):
     text_list = msg.split('@')
-
     record_list = []
 
     for i in text_list[1:]:
@@ -101,7 +100,11 @@ def prepare_record(msg):
 def insert_record(record_list):
     DATABASE_URL = os.environ["DATABASE_URL"]
 
-    conn = psycopg2.connect(DATABASE_URL, sslmode="require")
+    conn = psycopg2.connect(database="dahggat84j3plu",
+						    user="fmhvtfdwhmriha",
+						    password="6fa7397e002c2217f7975b7fe04e8348d7f14966c49137f500b6e9ba3f22b796",
+						    host="ec2-35-175-68-90.compute-1.amazonaws.com",
+						    port="5432")
     cursor = conn.cursor()
 
     table_columns = "(userid, writingdate, diary)"
