@@ -1,10 +1,12 @@
 # 載入LineBot所需要的模組
+import re
 import os
 import psycopg2
 from linebot.models import *
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
-from flask import Flask, request, abort
+from flask import Flask, request, abort, render_template
+from linebot.models.responses import Content
 
 app = Flask(__name__)
 
