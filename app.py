@@ -1,14 +1,10 @@
 # 載入LineBot所需要的模組
-from flask import Flask, request, abort
-from linebot import (
-    LineBotApi, WebhookHandler
-)
-from linebot.exceptions import (
-    InvalidSignatureError
-)
-from linebot.models import *
 import os
-from database import *
+import psycopg2
+from linebot.models import *
+from linebot import LineBotApi, WebhookHandler
+from linebot.exceptions import InvalidSignatureError
+from flask import Flask, request, abort
 
 app = Flask(__name__)
 
@@ -55,27 +51,27 @@ def handle_message(event):
                 event.reply_token,
                 TextSendMessage(text="資料上傳失敗")
             )
-    elif "查詢" in msg:
-        result = select_record()
+#     elif "查詢" in msg:
+#         result = select_record()
 
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=result)
-        )
-    elif "刪除" in msg:
-        result = delete_record(msg)
+#         line_bot_api.reply_message(
+#             event.reply_token,
+#             TextSendMessage(text=result)
+#         )
+#     elif "刪除" in msg:
+#         result = delete_record(msg)
 
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=result)
-        ) 
-    elif "更新" in msg:
-        result = update_record(msg)
+#         line_bot_api.reply_message(
+#             event.reply_token,
+#             TextSendMessage(text=result)
+#         ) 
+#     elif "更新" in msg:
+#         result = update_record(msg)
 
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=result)
-        ) 
+#         line_bot_api.reply_message(
+#             event.reply_token,
+#             TextSendMessage(text=result)
+#         ) 
     else:
         line_bot_api.reply_message(
             event.reply_token,
