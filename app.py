@@ -78,6 +78,48 @@ def handle_message(event):
             TextSendMessage(text=msg)
         )
 
+def prepare_record(msg):
+    text_list = msg.split('@')
+
+    record_list = []
+
+    for i in text_list[1:]:
+        temp_list = i.split(" ")
+
+        userid = temp_list[0]
+        writingdate = temp_list[1]
+        diary = temp_list[2]
+
+        record = (userid, writingdate, diary)
+        record_list.append(record)
+
+    return record_list
+
+# 將資料匯入資料庫
+def insert_record(record_list):
+    DATABASE_URL = os.environ["DATABASE_URL"]
+
+    conn = psycopg2.connect(DATABASE_URL, sslmode="require")
+    cursor = conn.cursor()
+
+    table_columns = "(userid, writingdate, diary)"
+    postgres_insert_query = f"""INSERT INTO userdiary {table_columns} VALUES (%s,%s,%s)"""
+
+    try:
+        cursor.executemany(postgres_insert_query, record_list)
+    except:
+        cursor.execute(postgres_insert_query, record_list)
+
+    conn.commit()
+
+    # 要回傳的文字
+    message = f"{cursor.rowcount}筆資料成功匯入資料庫囉"
+
+    cursor.close()
+    conn.close()
+
+    return message
+
 #主程式
 import os
 if __name__ == "__main__":
