@@ -125,7 +125,7 @@ def delete_record(message):
     conn = psycopg2.connect(DATABASE_URL, sslmode='require')
     cursor = conn.cursor()
 
-    postgres_delete_query = f"""DELETE FROM userdiary WHERE id = {message}"""
+    postgres_delete_query = f"""DELETE FROM userdiary WHERE userid = {message}"""
 
     cursor.execute(postgres_delete_query)
     conn.commit()
