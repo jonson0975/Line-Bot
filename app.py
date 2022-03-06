@@ -40,9 +40,9 @@ def callback():
 def handle_message(event):
     message = text=event.message.text
     if "紀錄" in message:
-        record_list = prepare_record(message)
-#         result = "傷心"
-        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=record_list))
+#         record_list = prepare_record(message)
+        result = "傷心"
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=result))
     else:
         line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
 
