@@ -46,8 +46,8 @@ def handle_message(event):
     elif "查詢" in message:
         result = select_record()
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=result))
-    elif "刪除" in message:
-        result = delete_record(message)
+    elif "更新" in message:
+        result = update_record(message)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=result))
     else:
         line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
@@ -117,26 +117,27 @@ def select_record():
 
     return content   
 
-# 刪除資料
-def delete_record(message):
-    message = message.split(" ")[1]
+# 更新資料
+def update_record(message):
     DATABASE_URL = os.environ["DATABASE_URL"]
 
     conn = psycopg2.connect(DATABASE_URL, sslmode='require')
     cursor = conn.cursor()
 
-    postgres_delete_query = f"""DELETE FROM userdiary WHERE id = '{message}'"""
+    msg_list = message.split(" ")
+    column   = msg_list[1]
+    origin   = msg_list[2]
+    new      = msg_list[3]
+    
+    postgres_update_query = f"""UPDATE userdiary set {column} = %s WHERE {column} = %s"""
 
-    cursor.execute(postgres_delete_query)
+    cursor.execute(postgres_update_query, (new, origin))
     conn.commit()
 
     content = ""
 
     count = cursor.rowcount
-    content += f"{count}筆資料成功從資料庫移除囉"
-
-    cursor.close()
-    conn.close()
+    content += f"{count}筆資料成功從資料庫更新囉"
 
     return content   
    
