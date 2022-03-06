@@ -3,7 +3,9 @@ from flask import Flask, request, abort
 from linebot import (LineBotApi, WebhookHandler)
 from linebot.exceptions import (InvalidSignatureError)
 from linebot.models import *
+import psycopg2
 import re
+import os
 
 app = Flask(__name__)
  
@@ -32,14 +34,13 @@ def callback():
 def handle_message(event):
     message = text=event.message.text
     if "紀錄" in message:
-        record_list = prepare_record(message)
-        result = insert_record(record_list)
+#         record_list = prepare_record(message)
+        result = "開心"
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=result))
     else:
         line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
 
 #主程式
-import os
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)
