@@ -8,7 +8,6 @@ from snownlp import SnowNLP
 from opencc import OpenCC
 import statistics
 import psycopg2
-import random
 import re
 import os
 
