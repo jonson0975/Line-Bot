@@ -47,7 +47,7 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
 
 def prepare_record(message):
-    text_list = message.split('@')   
+    text_list = message.split('\n')   
 
     record_list = []
 
