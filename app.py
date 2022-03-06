@@ -54,9 +54,9 @@ def prepare_record(message):
     for i in text_list[1:]:
         temp_list = i.split(" ")
 
-        userid = temp_list[0]
-        writingdate = temp_list[1]
-        diary = temp_list[2]
+        userid = temp_list[1]
+        writingdate = temp_list[2]
+        diary = temp_list[3]
         
         record = (userid, writingdate, diary)
         record_list.append(record)
