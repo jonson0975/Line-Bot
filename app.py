@@ -46,6 +46,23 @@ def handle_message(event):
     else:
         line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
 
+def prepare_record(message):
+    text_list = message.split('@')   
+
+    record_list = []
+
+    for i in text_list[1:]:
+        temp_list = i.split(" ")
+
+        userid = temp_list[0]
+        writingdate = temp_list[1]
+        diary = temp_list[2]
+        
+        record = (userid, writingdate, diary)
+        record_list.append(record)
+        
+    return record_list	
+	
 #主程式
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
