@@ -14,11 +14,11 @@ line_bot_api = LineBotApi('/Suqku7M9ZSE0fAymS2Z2ZDWlbqs5UfK2Gdl+/GPFTIPxpa6G3cL1
 # 必須放上自己的Channel Secret
 handler = WebhookHandler('f633360451f8659118a5fbbef0e218d0')
 
-conn = psycopg2.connect(database="dahggat84j3plu",
-			user="fmhvtfdwhmriha",
-			password="6fa7397e002c2217f7975b7fe04e8348d7f14966c49137f500b6e9ba3f22b796",
-			host="ec2-35-175-68-90.compute-1.amazonaws.com",
-			port="5432")
+# conn = psycopg2.connect(database="dahggat84j3plu",
+# 			user="fmhvtfdwhmriha",
+# 			password="6fa7397e002c2217f7975b7fe04e8348d7f14966c49137f500b6e9ba3f22b796",
+# 			host="ec2-35-175-68-90.compute-1.amazonaws.com",
+# 			port="5432")
 
 # 監聽所有來自 /callback 的 Post Request
 @app.route("/callback", methods=['POST'])
@@ -62,7 +62,32 @@ def prepare_record(message):
         record_list.append(record)
         
     return record_list	
-	
+
+# 將資料匯入資料庫
+def insert_record(record_list):
+    DATABASE_URL = os.environ["DATABASE_URL"]
+    
+    conn   = psycopg2.connect(DATABASE_URL, sslmode="require")
+    cursor = conn.cursor()
+
+    table_columns = "(userid, writingdate, diary)"
+    postgres_insert_query = f"""INSERT INTO userdiary {table_columns} VALUES (%s,%s,%s)"""
+
+    try:
+        cursor.executemany(postgres_insert_query, record_list)
+    except:
+        cursor.execute(postgres_insert_query, record_list)
+    
+    conn.commit()
+
+    # 要回傳的文字
+    message = f"{cursor.rowcount}筆資料成功匯入資料庫囉"
+
+    cursor.close()
+    conn.close()
+
+    return message
+
 #主程式
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
