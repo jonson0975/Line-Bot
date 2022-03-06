@@ -1,9 +1,11 @@
 #載入LineBot所需要的模組
+# coding = utf-8
 from flask import Flask, request, abort
 from linebot import (LineBotApi, WebhookHandler)
 from linebot.exceptions import (InvalidSignatureError)
 from linebot.models import *
-import snownlp
+from snownlp import SnowNLP
+from opencc import OpenCC
 import psycopg2
 import re
 import os
