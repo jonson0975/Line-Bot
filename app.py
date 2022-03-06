@@ -43,9 +43,9 @@ def handle_message(event):
         record_list = prepare_record(message)
         result = insert_record(record_list)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=result))
-#     elif "查詢" in message:
-#         result = select_record()
-#         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=result))
+    elif "查詢" in message:
+        result = select_record()
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=result))
     else:
         line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
 
@@ -91,6 +91,29 @@ def insert_record(record_list):
 
     return message
 
+# 查詢資料
+def select_record():
+    DATABASE_URL = os.environ["DATABASE_URL"]
+
+    conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+    cursor = conn.cursor()
+
+    postgres_select_query = f"""SELECT * FROM userdiary ORDER BY id"""
+
+    cursor.execute(postgres_select_query)
+    record = str(cursor.fetchall())
+
+    content = ""
+    record = record.split("),")
+
+    for number, r in enumerate(record):
+        content += f"第{number+1}筆資料\n{r}\n"
+
+    cursor.close()
+    conn.close()
+
+    return content   
+   
 #主程式
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
