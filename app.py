@@ -43,7 +43,7 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     message = text=event.message.text
-    if "紀錄" in message:
+    if "日記" in message:
         record_list = prepare_record(message)
         result = insert_record(record_list)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=result))
@@ -92,7 +92,7 @@ def insert_record(record_list):
     conn.commit()
 
     # 要回傳的文字
-    message = f"{cursor.rowcount}筆資料成功匯入資料庫囉"
+    message = f"{cursor.rowcount}筆日記成功新增至日記庫囉"
 
     cursor.close()
     conn.close()
@@ -142,7 +142,7 @@ def update_record(message):
     content = ""
 
     count = cursor.rowcount
-    content += f"{count}筆資料成功從資料庫更新囉"
+    content += f"{count}筆資料成功從日記庫更新囉"
 
     return content   
 
