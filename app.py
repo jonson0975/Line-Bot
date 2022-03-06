@@ -46,6 +46,9 @@ def handle_message(event):
     elif "查詢" in message:
         result = select_record()
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=result))
+    elif "刪除" in message:
+        result = delete_record(message)
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=result))
     else:
         line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
 
