@@ -31,7 +31,7 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     message = text=event.message.text
-    if re.match('告訴我秘密',message):
+    if "告訴我秘密" :
         line_bot_api.reply_message(event.reply_token,TextSendMessage('才不告訴你哩！'))
     else:
         line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
