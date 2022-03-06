@@ -68,8 +68,9 @@ def prepare_record(message):
         userid = temp_list[0]
         writingdate = temp_list[1]
         diary = temp_list[2]
+        score = diary_to_score(diary)
         
-        record = (userid, writingdate, diary, random.randint(1,5))
+        record = (userid, writingdate, diary, score)
         record_list.append(record)
         
     return record_list	
@@ -145,6 +146,20 @@ def update_record(message):
     content += f"{count}筆資料成功從資料庫更新囉"
 
     return content   
+
+def diary_to_score(diary):
+    cc = OpenCC('tw2sp')
+    a = cc.convert(diary)
+    sentence = re.split('，|。|…', a)
+    s_list = []
+    for i in sentence:
+        s = SnowNLP(i)
+        s_senti = s.sentiments
+        s_round_senti = round(s_senti, 1)
+        s_list.append(s_round_senti)
+    score = round(statistics.mean(s_list), 1)
+    
+    return score
    
 #主程式
 if __name__ == "__main__":
