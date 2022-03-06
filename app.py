@@ -14,6 +14,12 @@ line_bot_api = LineBotApi('/Suqku7M9ZSE0fAymS2Z2ZDWlbqs5UfK2Gdl+/GPFTIPxpa6G3cL1
 # 必須放上自己的Channel Secret
 handler = WebhookHandler('f633360451f8659118a5fbbef0e218d0')
 
+conn = psycopg2.connect(database="dahggat84j3plu",
+						                  user="fmhvtfdwhmriha",
+						                  password="6fa7397e002c2217f7975b7fe04e8348d7f14966c49137f500b6e9ba3f22b796",
+						                  host="ec2-35-175-68-90.compute-1.amazonaws.com",
+						                  port="5432")
+
 # 監聽所有來自 /callback 的 Post Request
 @app.route("/callback", methods=['POST'])
 def callback():
@@ -35,7 +41,7 @@ def handle_message(event):
     message = text=event.message.text
     if "紀錄" in message:
 #         record_list = prepare_record(message)
-        result = "開心"
+        result = "傷心"
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=result))
     else:
         line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
