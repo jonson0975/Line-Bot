@@ -116,6 +116,29 @@ def select_record():
     conn.close()
 
     return content   
+
+# 刪除資料
+def delete_record(message):
+    message = message.split(" ")[1]
+    DATABASE_URL = os.environ["DATABASE_URL"]
+
+    conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+    cursor = conn.cursor()
+
+    postgres_delete_query = f"""DELETE FROM userdiary WHERE id = {message}"""
+
+    cursor.execute(postgres_delete_query)
+    conn.commit()
+
+    content = ""
+
+    count = cursor.rowcount
+    content += f"{count}筆資料成功從資料庫移除囉"
+
+    cursor.close()
+    conn.close()
+
+    return content   
    
 #主程式
 if __name__ == "__main__":
