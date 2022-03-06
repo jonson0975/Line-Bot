@@ -43,6 +43,9 @@ def handle_message(event):
         record_list = prepare_record(message)
         result = insert_record(record_list)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=result))
+#     elif "查詢" in message:
+#         result = select_record()
+#         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=result))
     else:
         line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
 
