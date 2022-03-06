@@ -7,6 +7,7 @@ from linebot.models import *
 from snownlp import SnowNLP
 from opencc import OpenCC
 import psycopg2
+import random
 import re
 import os
 
@@ -67,7 +68,7 @@ def prepare_record(message):
         writingdate = temp_list[1]
         diary = temp_list[2]
         
-        record = (userid, writingdate, diary)
+        record = (userid, writingdate, diary, random.randint(1,5))
         record_list.append(record)
         
     return record_list	
@@ -79,8 +80,8 @@ def insert_record(record_list):
     conn   = psycopg2.connect(DATABASE_URL, sslmode="require")
     cursor = conn.cursor()
 
-    table_columns = "(userid, writingdate, diary)"
-    postgres_insert_query = f"""INSERT INTO userdiary {table_columns} VALUES (%s,%s,%s)"""
+    table_columns = "(userid, writingdate, diary, score)"
+    postgres_insert_query = f"""INSERT INTO userdiary {table_columns} VALUES (%s,%s,%s,%s)"""
 
     try:
         cursor.executemany(postgres_insert_query, record_list)
