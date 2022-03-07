@@ -53,6 +53,12 @@ def handle_message(event):
     elif "更新" in message:
         result = update_record(message)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=result))
+    elif "情緒分數" in message:
+        image_message = ImageSendMessage(
+            original_content_url='https://imgur.com/a/6yuwnTL'
+            preview_image_url='https://imgur.com/a/6yuwnTL'
+        )
+        line_bot_api.reply_message(event.reply_token, image_message)
     else:
         line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
 
