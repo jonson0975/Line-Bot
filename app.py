@@ -60,7 +60,7 @@ def handle_message(event):
 #         )
 #         line_bot_api.reply_message(event.reply_token, image_message)
     elif "連接" in message:
-        result = 'http://10.1.4.189:5000/app_test/'
+        result = 'http://10.1.4.189:5000/app_test/str'
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=result))
     else:
         line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
