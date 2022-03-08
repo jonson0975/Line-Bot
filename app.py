@@ -61,11 +61,20 @@ def handle_message(event):
 #         line_bot_api.reply_message(event.reply_token, image_message)
     elif "使用者" in message:
         link = 'http://10.1.4.189:5000/app_test/'
+        message = user_id(message)
         result = link + message
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=result))
     else:
         line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
 
+def user_id(message):
+    characters = "使用者"
+
+    for x in range(len(characters)):
+        message = message.replace(characters[x],"")
+
+    return message      
+      
 def prepare_record(message):
     text_list = message.split('\n')   
 
