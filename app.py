@@ -43,7 +43,7 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     message = text=event.message.text
-    if "日記" in message:
+    if "@" in message:
         record_list = prepare_record(message)
         result = insert_record(record_list)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=result))
@@ -59,11 +59,11 @@ def handle_message(event):
 #             preview_image_url='https://imgur.com/a/6yuwnTL'
 #         )
 #         line_bot_api.reply_message(event.reply_token, image_message)
-    elif "使用者" in message:
-        link = 'http://10.1.4.189:5000/app_test/'
-        message = user_id(message)
-        result = link + message
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=result))
+#     elif "使用者" in message:
+#         link = 'http://10.1.4.189:5000/app_test/'
+#         message = user_id(message)
+#         result = link + message
+#         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=result))
     else:
         line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
 
