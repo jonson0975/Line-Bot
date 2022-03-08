@@ -48,7 +48,7 @@ def handle_message(event):
         result = insert_record(record_list)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=result))
     elif "專業管道" in message:
-        line_bot_api.reply_message(event.reply_token,TemplateSendMessage(template_link))
+        payload["messages"] = [getHelp()]
     elif "諮商管道" in message:
         result = 'https://heho.com.tw/archives/163223'
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=result))
@@ -76,85 +76,87 @@ def handle_message(event):
     else:
         line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
 
-template_link = {
-    "type": "template",
-    "altText": "this is a carousel template",
-    "template": {
-        "type": "carousel",
-        "columns": [
-            {
-                "imageBackgroundColor": "#000000",
-                "title": "諮商心理師公會全國聯合會",
-                "text": "播打:02-2511-8173",
-                "defaultAction": {
-                    "type": "uri",
-                    "label": "前往首頁",
-                    "uri": "https://www.tcpu.org.tw/people-area.html"
-                },
-                "actions": [
-                    {
+def getHelp():
+    message = {
+        "type": "template",
+        "altText": "this is a carousel template",
+        "template": {
+            "type": "carousel",
+            "columns": [
+                {
+                    "imageBackgroundColor": "#000000",
+                    "title": "諮商心理師公會全國聯合會",
+                    "text": "播打:02-2511-8173",
+                    "defaultAction": {
                         "type": "uri",
-                        "label": "前往民眾專區",
+                        "label": "前往首頁",
                         "uri": "https://www.tcpu.org.tw/people-area.html"
-                    }
-                ]
-            },
-            {
-                "imageBackgroundColor": "#000000",
-                "title": "華人心理治療基金會",
-                "text": "播打:02-7700-7866",
-                "defaultAction": {
-                    "type": "uri",
-                    "label": "前往首頁",
-                    "uri": "https://www.tip.org.tw/"
+                    },
+                    "actions": [
+                        {
+                            "type": "uri",
+                            "label": "前往民眾專區",
+                            "uri": "https://www.tcpu.org.tw/people-area.html"
+                        }
+                    ]
                 },
-                "actions": [
-                    {
+                {
+                    "imageBackgroundColor": "#000000",
+                    "title": "華人心理治療基金會",
+                    "text": "播打:02-7700-7866",
+                    "defaultAction": {
                         "type": "uri",
-                        "label": "我需要面對面諮商",
-                        "uri": "https://www.tip.org.tw/f2fbooking"
-                    }
-                ]
-            },
-            {
-                "imageBackgroundColor": "#000000",
-                "title": "國際生命線台灣總會",
-                "text": "播打:1995",
-                "defaultAction": {
-                    "type": "uri",
-                    "label": "前往首頁",
-                    "uri": "http://www.life1995.org.tw/content.asp?id=14"
+                        "label": "前往首頁",
+                        "uri": "https://www.tip.org.tw/"
+                    },
+                    "actions": [
+                        {
+                            "type": "uri",
+                            "label": "我需要面對面諮商",
+                            "uri": "https://www.tip.org.tw/f2fbooking"
+                        }
+                    ]
                 },
-                "actions": [
-                    {
+                {
+                    "imageBackgroundColor": "#000000",
+                    "title": "國際生命線台灣總會",
+                    "text": "播打:1995",
+                    "defaultAction": {
                         "type": "uri",
-                        "label": "服務項目",
-                        "uri": "http://www.life1995.org.tw/content.asp?id=8"
-                    }
-                ]
-            },
-            {
-                "imageBackgroundColor": "#000000",
-                "title": "張老師基金會",
-                "text": "播打:1980",
-                "defaultAction": {
-                    "type": "uri",
-                    "label": "前往首頁",
-                    "uri": "http://www.1980.org.tw/web3-20101110/main.php?customerid=3"
+                        "label": "前往首頁",
+                        "uri": "http://www.life1995.org.tw/content.asp?id=14"
+                    },
+                    "actions": [
+                        {
+                            "type": "uri",
+                            "label": "服務項目",
+                            "uri": "http://www.life1995.org.tw/content.asp?id=8"
+                        }
+                    ]
                 },
-                "actions": [
-                    {
+                {
+                    "imageBackgroundColor": "#000000",
+                    "title": "張老師基金會",
+                    "text": "播打:1980",
+                    "defaultAction": {
                         "type": "uri",
-                        "label": "使用者專區",
-                        "uri": "http://www.1980.org.tw/vlr/login-v3.htm"
-                    }
-                ]
-            }
-        ],
-        "imageAspectRatio": "rectangle",
-        "imageSize": "cover"
+                        "label": "前往首頁",
+                        "uri": "http://www.1980.org.tw/web3-20101110/main.php?customerid=3"
+                    },
+                    "actions": [
+                        {
+                            "type": "uri",
+                            "label": "使用者專區",
+                            "uri": "http://www.1980.org.tw/vlr/login-v3.htm"
+                        }
+                    ]
+                }
+            ],
+            "imageAspectRatio": "rectangle",
+            "imageSize": "cover"
+        }
     }
-}    
+    return message
       
 def user_id(message):
     characters = "使用者"
