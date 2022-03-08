@@ -59,6 +59,9 @@ def handle_message(event):
 #             preview_image_url='https://imgur.com/a/6yuwnTL'
 #         )
 #         line_bot_api.reply_message(event.reply_token, image_message)
+    elif "連接" in message:
+        result = 'http://10.1.4.189:5000/app_test/'
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=result))
     else:
         line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
 
