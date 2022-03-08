@@ -60,9 +60,10 @@ def handle_message(event):
 #         )
 #         line_bot_api.reply_message(event.reply_token, image_message)
     elif "使用者" in message:
-        link = 'http://10.1.4.189:5000/app_test/'
-        message = user_id(message)
-        result = link + message
+        link = 'http://10.1.4.189:5000/app_test/{}'
+        message = {user_id(message)}
+        for i in message:
+            result = link.format(i)
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=result))
     else:
         line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
