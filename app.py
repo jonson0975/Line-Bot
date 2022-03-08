@@ -63,8 +63,6 @@ def handle_message(event):
         link = 'http://10.1.4.189:5000/app_test/'
         result = link + message
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=result))
-    elif "測試" in message:
-        result = 'http://10.1.0.35:5000/TextCloud/TEST'
     else:
         line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
 
