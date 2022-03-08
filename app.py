@@ -43,7 +43,7 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     message = text=event.message.text
-    if "@" in message:
+    if "寫日記" in message:
         record_list = prepare_record(message)
         result = insert_record(record_list)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=result))
@@ -67,13 +67,13 @@ def handle_message(event):
     else:
         line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
 
-def user_id(message):
-    characters = "使用者"
+# def user_id(message):
+#     characters = "使用者"
 
-    for x in range(len(characters)):
-        message = message.replace(characters[x],"")
+#     for x in range(len(characters)):
+#         message = message.replace(characters[x],"")
 
-    return message      
+#     return message      
       
 def prepare_record(message):
     text_list = message.split('\n')   
