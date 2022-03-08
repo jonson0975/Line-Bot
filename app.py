@@ -48,10 +48,10 @@ def handle_message(event):
         result = insert_record(record_list)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=result))
     elif "諮商管道" in message:
-        result = "https://heho.com.tw/archives/163223"
+        result = 'https://heho.com.tw/archives/163223'
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=result))
     elif "每日一句" in message:
-        result = "時常提醒自己是有人愛的、不孤單的，快樂就會油然而生。"
+        result = '時常提醒自己是有人愛的、不孤單的，快樂就會油然而生。'
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=result))
     elif "查詢" in message:
         result = select_record()
