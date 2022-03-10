@@ -49,28 +49,28 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=result))
     elif "專業管道" in message:
         payload["messages"] = [getHelp()]
-    elif "諮商管道" in message:
-        line_bot_api.reply_message(event.reply_token,TextSendMessage('https://heho.com.tw/archives/163223'))
-    elif "每日一句" in message:
-        line_bot_api.reply_message(event.reply_token,TextSendMessage('時常提醒自己是有人愛的、不孤單的，快樂就會油然而生。'))
-    elif "查詢" in message:
-        result = select_record()
-        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=result))
-    elif "更新" in message:
-        result = update_record(message)
-        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=result))
+#     elif "諮商管道" in message:
+#         line_bot_api.reply_message(event.reply_token,TextSendMessage('https://heho.com.tw/archives/163223'))
+#     elif "每日一句" in message:
+#         line_bot_api.reply_message(event.reply_token,TextSendMessage('時常提醒自己是有人愛的、不孤單的，快樂就會油然而生。'))
+#     elif "查詢" in message:
+#         result = select_record()
+#         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=result))
+#     elif "更新" in message:
+#         result = update_record(message)
+#         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=result))
 #     elif "情緒分數" in message:
 #         image_message = ImageSendMessage(
 #             original_content_url='https://imgur.com/a/6yuwnTL',
 #             preview_image_url='https://imgur.com/a/6yuwnTL'
 #         )
 #         line_bot_api.reply_message(event.reply_token, image_message)
-    elif "使用者" in message:
-        link = 'http://10.1.4.189:5000/app_test/{}'
-        message = {user_id(message)}
-        for i in message:
-            result = link.format(i)
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=result))
+#     elif "使用者" in message:
+#         link = 'http://10.1.4.189:5000/app_test/{}'
+#         message = {user_id(message)}
+#         for i in message:
+#             result = link.format(i)
+#         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=result))
 
 def getHelp():
     message = {
