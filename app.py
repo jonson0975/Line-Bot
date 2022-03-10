@@ -52,77 +52,69 @@ def handle_message(event):
         alt_text='Carousel template',
         template=CarouselTemplate(
         columns=[
-            {
-                "imageBackgroundColor": "#000000",
-                "title": "諮商心理師公會全國聯合會",
-                "text": "播打:02-2511-8173",
-                "defaultAction": {
-                    "type": "uri",
-                    "label": "前往首頁",
-                    "uri": "https://www.tcpu.org.tw/people-area.html"
-                },
-                "actions": [
-                    {
-                        "type": "uri",
-                        "label": "前往民眾專區",
-                        "uri": "https://www.tcpu.org.tw/people-area.html"
-                    }
+            CarouselColumn(
+                imageBackgroundColor="#000000",
+                title="諮商心理師公會全國聯合會",
+                text="播打:02-2511-8173",
+                actions=[
+                    URITemplateAction(
+                        label="前往首頁",
+                        uri="https://www.tcpu.org.tw/people-area.html"
+                    ),
+                    URITemplateAction(
+                        label="前往民眾專區",
+                        uri="https://www.tcpu.org.tw/people-area.html"
+                    )
                 ]
-            },
-            {
-                "imageBackgroundColor": "#000000",
-                "title": "華人心理治療基金會",
-                "text": "播打:02-7700-7866",
-                "defaultAction": {
-                    "type": "uri",
-                    "label": "前往首頁",
-                    "uri": "https://www.tip.org.tw/"
-                },
-                "actions": [
-                    {
-                        "type": "uri",
-                        "label": "我需要面對面諮商",
-                        "uri": "https://www.tip.org.tw/f2fbooking"
-                    }
+            ),
+            CarouselColumn(
+                imageBackgroundColor="#000000",
+                title="華人心理治療基金會",
+                text="播打:02-7700-7866",
+                actions=[
+                    URITemplateAction(
+                        label="前往首頁",
+                        uri="https://www.tip.org.tw/"
+                    ),
+                    URITemplateAction(
+                        label="我需要面對面諮商",
+                        uri="https://www.tip.org.tw/f2fbooking"
+                    )
                 ]
-            },
-            {
-                "imageBackgroundColor": "#000000",
-                "title": "國際生命線台灣總會",
-                "text": "播打:1995",
-                "defaultAction": {
-                    "type": "uri",
-                    "label": "前往首頁",
-                    "uri": "http://www.life1995.org.tw/content.asp?id=14"
-                },
-                "actions": [
-                    {
-                        "type": "uri",
-                        "label": "服務項目",
-                        "uri": "http://www.life1995.org.tw/content.asp?id=8"
-                    }
+            ),
+            CarouselColumn(
+                imageBackgroundColor="#000000",
+                title="國際生命線台灣總會",
+                text="播打:1995",
+                actions=[
+                    URITemplateAction(
+                        label="前往首頁",
+                        uri="http://www.life1995.org.tw/content.asp?id=14"
+                    ),
+                    URITemplateAction(
+                        label="服務項目",
+                        uri="http://www.life1995.org.tw/content.asp?id=8"
+                    )
                 ]
-            },
-            {
-                "imageBackgroundColor": "#000000",
-                "title": "張老師基金會",
-                "text": "播打:1980",
-                "defaultAction": {
-                    "type": "uri",
-                    "label": "前往首頁",
-                    "uri": "http://www.1980.org.tw/web3-20101110/main.php?customerid=3"
-                },
-                "actions": [
-                    {
-                        "type": "uri",
-                        "label": "使用者專區",
-                        "uri": "http://www.1980.org.tw/vlr/login-v3.htm"
-                    }
+            ),
+            CarouselColumn(
+                imageBackgroundColor="#000000",
+                title="張老師基金會",
+                text="播打:1980",
+                actions=[
+                    URITemplateAction(
+                        label="前往首頁",
+                        uri="http://www.1980.org.tw/web3-20101110/main.php?customerid=3"
+                    ),
+                    URITemplateAction(
+                        label="使用者專區",
+                        uri="http://www.1980.org.tw/vlr/login-v3.htm"
+                    )
                 ]
-            }
-        ],
-        "imageAspectRatio": "rectangle",
-        "imageSize": "cover"
+            )
+        ]
+        )
+        )
         line_bot_api.reply_message(event.reply_token,Carousel_template)
 #     elif "諮商管道" in message:
 #         line_bot_api.reply_message(event.reply_token,TextSendMessage('https://heho.com.tw/archives/163223'))
@@ -149,87 +141,87 @@ def handle_message(event):
     else:
         line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
 
-def getHelp():
-    message = {
-        "type": "template",
-        "altText": "this is a carousel template",
-        "template": {
-            "type": "carousel",
-            "columns": [
-                {
-                    "imageBackgroundColor": "#000000",
-                    "title": "諮商心理師公會全國聯合會",
-                    "text": "播打:02-2511-8173",
-                    "defaultAction": {
-                        "type": "uri",
-                        "label": "前往首頁",
-                        "uri": "https://www.tcpu.org.tw/people-area.html"
-                    },
-                    "actions": [
-                        {
-                            "type": "uri",
-                            "label": "前往民眾專區",
-                            "uri": "https://www.tcpu.org.tw/people-area.html"
-                        }
-                    ]
-                },
-                {
-                    "imageBackgroundColor": "#000000",
-                    "title": "華人心理治療基金會",
-                    "text": "播打:02-7700-7866",
-                    "defaultAction": {
-                        "type": "uri",
-                        "label": "前往首頁",
-                        "uri": "https://www.tip.org.tw/"
-                    },
-                    "actions": [
-                        {
-                            "type": "uri",
-                            "label": "我需要面對面諮商",
-                            "uri": "https://www.tip.org.tw/f2fbooking"
-                        }
-                    ]
-                },
-                {
-                    "imageBackgroundColor": "#000000",
-                    "title": "國際生命線台灣總會",
-                    "text": "播打:1995",
-                    "defaultAction": {
-                        "type": "uri",
-                        "label": "前往首頁",
-                        "uri": "http://www.life1995.org.tw/content.asp?id=14"
-                    },
-                    "actions": [
-                        {
-                            "type": "uri",
-                            "label": "服務項目",
-                            "uri": "http://www.life1995.org.tw/content.asp?id=8"
-                        }
-                    ]
-                },
-                {
-                    "imageBackgroundColor": "#000000",
-                    "title": "張老師基金會",
-                    "text": "播打:1980",
-                    "defaultAction": {
-                        "type": "uri",
-                        "label": "前往首頁",
-                        "uri": "http://www.1980.org.tw/web3-20101110/main.php?customerid=3"
-                    },
-                    "actions": [
-                        {
-                            "type": "uri",
-                            "label": "使用者專區",
-                            "uri": "http://www.1980.org.tw/vlr/login-v3.htm"
-                        }
-                    ]
-                }
-            ],
-            "imageAspectRatio": "rectangle",
-            "imageSize": "cover"
-        }
-    }
-    return message
+# def getHelp():
+#     message = {
+#         "type": "template",
+#         "altText": "this is a carousel template",
+#         "template": {
+#             "type": "carousel",
+#             "columns": [
+#                 {
+#                     "imageBackgroundColor": "#000000",
+#                     "title": "諮商心理師公會全國聯合會",
+#                     "text": "播打:02-2511-8173",
+#                     "defaultAction": {
+#                         "type": "uri",
+#                         "label": "前往首頁",
+#                         "uri": "https://www.tcpu.org.tw/people-area.html"
+#                     },
+#                     "actions": [
+#                         {
+#                             "type": "uri",
+#                             "label": "前往民眾專區",
+#                             "uri": "https://www.tcpu.org.tw/people-area.html"
+#                         }
+#                     ]
+#                 },
+#                 {
+#                     "imageBackgroundColor": "#000000",
+#                     "title": "華人心理治療基金會",
+#                     "text": "播打:02-7700-7866",
+#                     "defaultAction": {
+#                         "type": "uri",
+#                         "label": "前往首頁",
+#                         "uri": "https://www.tip.org.tw/"
+#                     },
+#                     "actions": [
+#                         {
+#                             "type": "uri",
+#                             "label": "我需要面對面諮商",
+#                             "uri": "https://www.tip.org.tw/f2fbooking"
+#                         }
+#                     ]
+#                 },
+#                 {
+#                     "imageBackgroundColor": "#000000",
+#                     "title": "國際生命線台灣總會",
+#                     "text": "播打:1995",
+#                     "defaultAction": {
+#                         "type": "uri",
+#                         "label": "前往首頁",
+#                         "uri": "http://www.life1995.org.tw/content.asp?id=14"
+#                     },
+#                     "actions": [
+#                         {
+#                             "type": "uri",
+#                             "label": "服務項目",
+#                             "uri": "http://www.life1995.org.tw/content.asp?id=8"
+#                         }
+#                     ]
+#                 },
+#                 {
+#                     "imageBackgroundColor": "#000000",
+#                     "title": "張老師基金會",
+#                     "text": "播打:1980",
+#                     "defaultAction": {
+#                         "type": "uri",
+#                         "label": "前往首頁",
+#                         "uri": "http://www.1980.org.tw/web3-20101110/main.php?customerid=3"
+#                     },
+#                     "actions": [
+#                         {
+#                             "type": "uri",
+#                             "label": "使用者專區",
+#                             "uri": "http://www.1980.org.tw/vlr/login-v3.htm"
+#                         }
+#                     ]
+#                 }
+#             ],
+#             "imageAspectRatio": "rectangle",
+#             "imageSize": "cover"
+#         }
+#     }
+#     return message
       
 # def user_id(message):
 #     characters = "開始寫"
