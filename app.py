@@ -120,9 +120,9 @@ def handle_message(event):
 #         line_bot_api.reply_message(event.reply_token,TextSendMessage('https://heho.com.tw/archives/163223'))
     elif "每日一句" in message:
         line_bot_api.reply_message(event.reply_token,TextSendMessage('時常提醒自己是有人愛的、不孤單的，快樂就會油然而生。'))
-#     elif "查詢" in message:
-#         result = select_record()
-#         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=result))
+    elif "查詢" in message:
+        result = select_record()
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=result))
 #     elif "更新" in message:
 #         result = update_record(message)
 #         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=result))
@@ -275,27 +275,27 @@ def handle_message(event):
 #     return message
 
 # 查詢資料
-# def select_record():
-#     DATABASE_URL = os.environ["DATABASE_URL"]
+def select_record():
+    DATABASE_URL = os.environ["DATABASE_URL"]
 
-#     conn = psycopg2.connect(DATABASE_URL, sslmode='require')
-#     cursor = conn.cursor()
+    conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+    cursor = conn.cursor()
 
-#     postgres_select_query = f"""SELECT * FROM userdiary ORDER BY id"""
+    postgres_select_query = f"""SELECT * FROM userdiary ORDER BY id"""
 
-#     cursor.execute(postgres_select_query)
-#     record = str(cursor.fetchall())
+    cursor.execute(postgres_select_query)
+    record = str(cursor.fetchall())
 
-#     content = ""
-#     record = record.split("),")
+    content = ""
+    record = record.split("),")
 
-#     for number, r in enumerate(record):
-#         content += f"第{number+1}筆資料\n{r}\n"
+    for number, r in enumerate(record):
+        content += f"第{number+1}筆資料\n{r}\n"
 
-#     cursor.close()
-#     conn.close()
+    cursor.close()
+    conn.close()
 
-#     return content   
+    return content   
 
 # 更新資料
 # def update_record(message):
