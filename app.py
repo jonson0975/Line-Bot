@@ -59,7 +59,7 @@ def handle_message(event):
                 actions=[
                     URITemplateAction(
                         label="前往首頁",
-                        uri="https://www.tcpu.org.tw/people-area.html"
+                        uri="https://liff.line.me/1656936446-QmxeAVXk"
                     ),
                     URITemplateAction(
                         label="前往民眾專區",
