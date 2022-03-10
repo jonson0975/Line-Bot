@@ -47,7 +47,7 @@ def handle_message(event):
         record_list = prepare_record(message)
         result = insert_record(record_list)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=result))
-    elif "專業管道" in message:
+    elif "諮商管道" in message:
         Carousel_template = TemplateSendMessage(
         alt_text='Carousel template',
         template=CarouselTemplate(
