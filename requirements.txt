@@ -1,7 +1,6 @@
 gunicorn
 line-bot-sdk
 Flask
-audioread
 psycopg2
 snownlp
 opencc
