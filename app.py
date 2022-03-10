@@ -162,109 +162,109 @@ def user_id(message):
 
     return message      
       
-def prepare_record(message):
-    text_list = message.split('\n')   
+# def prepare_record(message):
+#     text_list = message.split('\n')   
 
-    record_list = []
+#     record_list = []
 
-    for i in text_list[1:]:
-        temp_list = i.split(" ")
+#     for i in text_list[1:]:
+#         temp_list = i.split(" ")
 
-        userid = temp_list[0]
-        writingdate = temp_list[1]
-        diary = temp_list[2]
-        score = diary_to_score(diary)
+#         userid = temp_list[0]
+#         writingdate = temp_list[1]
+#         diary = temp_list[2]
+#         score = diary_to_score(diary)
         
-        record = (userid, writingdate, diary, score)
-        record_list.append(record)
+#         record = (userid, writingdate, diary, score)
+#         record_list.append(record)
         
-    return record_list	
+#     return record_list	
 
 # 將資料匯入資料庫
-def insert_record(record_list):
-    DATABASE_URL = os.environ["DATABASE_URL"]
+# def insert_record(record_list):
+#     DATABASE_URL = os.environ["DATABASE_URL"]
     
-    conn   = psycopg2.connect(DATABASE_URL, sslmode="require")
-    cursor = conn.cursor()
+#     conn   = psycopg2.connect(DATABASE_URL, sslmode="require")
+#     cursor = conn.cursor()
 
-    table_columns = "(userid, writingdate, diary, score)"
-    postgres_insert_query = f"""INSERT INTO userdiary {table_columns} VALUES (%s,%s,%s,%s)"""
+#     table_columns = "(userid, writingdate, diary, score)"
+#     postgres_insert_query = f"""INSERT INTO userdiary {table_columns} VALUES (%s,%s,%s,%s)"""
 
-    try:
-        cursor.executemany(postgres_insert_query, record_list)
-    except:
-        cursor.execute(postgres_insert_query, record_list)
+#     try:
+#         cursor.executemany(postgres_insert_query, record_list)
+#     except:
+#         cursor.execute(postgres_insert_query, record_list)
     
-    conn.commit()
+#     conn.commit()
 
-    # 要回傳的文字
-    message = f"{cursor.rowcount}筆日記成功新增至日記庫囉"
+#     # 要回傳的文字
+#     message = f"{cursor.rowcount}筆日記成功新增至日記庫囉"
 
-    cursor.close()
-    conn.close()
+#     cursor.close()
+#     conn.close()
 
-    return message
+#     return message
 
 # 查詢資料
-def select_record():
-    DATABASE_URL = os.environ["DATABASE_URL"]
+# def select_record():
+#     DATABASE_URL = os.environ["DATABASE_URL"]
 
-    conn = psycopg2.connect(DATABASE_URL, sslmode='require')
-    cursor = conn.cursor()
+#     conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+#     cursor = conn.cursor()
 
-    postgres_select_query = f"""SELECT * FROM userdiary ORDER BY id"""
+#     postgres_select_query = f"""SELECT * FROM userdiary ORDER BY id"""
 
-    cursor.execute(postgres_select_query)
-    record = str(cursor.fetchall())
+#     cursor.execute(postgres_select_query)
+#     record = str(cursor.fetchall())
 
-    content = ""
-    record = record.split("),")
+#     content = ""
+#     record = record.split("),")
 
-    for number, r in enumerate(record):
-        content += f"第{number+1}筆資料\n{r}\n"
+#     for number, r in enumerate(record):
+#         content += f"第{number+1}筆資料\n{r}\n"
 
-    cursor.close()
-    conn.close()
+#     cursor.close()
+#     conn.close()
 
-    return content   
+#     return content   
 
 # 更新資料
-def update_record(message):
-    DATABASE_URL = os.environ["DATABASE_URL"]
+# def update_record(message):
+#     DATABASE_URL = os.environ["DATABASE_URL"]
 
-    conn = psycopg2.connect(DATABASE_URL, sslmode='require')
-    cursor = conn.cursor()
+#     conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+#     cursor = conn.cursor()
 
-    msg_list = message.split(" ")
-    column   = msg_list[1]
-    origin   = msg_list[2]
-    new      = msg_list[3]
+#     msg_list = message.split(" ")
+#     column   = msg_list[1]
+#     origin   = msg_list[2]
+#     new      = msg_list[3]
     
-    postgres_update_query = f"""UPDATE userdiary set {column} = %s WHERE {column} = %s"""
+#     postgres_update_query = f"""UPDATE userdiary set {column} = %s WHERE {column} = %s"""
 
-    cursor.execute(postgres_update_query, (new, origin))
-    conn.commit()
+#     cursor.execute(postgres_update_query, (new, origin))
+#     conn.commit()
 
-    content = ""
+#     content = ""
 
-    count = cursor.rowcount
-    content += f"{count}筆資料成功從日記庫更新囉"
+#     count = cursor.rowcount
+#     content += f"{count}筆資料成功從日記庫更新囉"
 
-    return content   
+#     return content   
 
-def diary_to_score(diary):
-    cc = OpenCC('tw2sp')
-    a = cc.convert(diary)
-    sentence = re.split('，|。|…', a)
-    s_list = []
-    for i in sentence:
-        s = SnowNLP(i)
-        s_senti = s.sentiments
-        s_round_senti = round(s_senti, 1)
-        s_list.append(s_round_senti)
-    score = round(statistics.mean(s_list), 1)
+# def diary_to_score(diary):
+#     cc = OpenCC('tw2sp')
+#     a = cc.convert(diary)
+#     sentence = re.split('，|。|…', a)
+#     s_list = []
+#     for i in sentence:
+#         s = SnowNLP(i)
+#         s_senti = s.sentiments
+#         s_round_senti = round(s_senti, 1)
+#         s_list.append(s_round_senti)
+#     score = round(statistics.mean(s_list), 1)
     
-    return score
+#     return score
    
 #主程式
 if __name__ == "__main__":
