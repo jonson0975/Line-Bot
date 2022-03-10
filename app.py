@@ -71,6 +71,8 @@ def handle_message(event):
         for i in message:
             result = link.format(i)
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=result))
+    else:
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
 
 def getHelp():
     message = {
