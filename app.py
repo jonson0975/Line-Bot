@@ -156,13 +156,13 @@ def getHelp():
     }
     return message
       
-def user_id(message):
-    characters = "開始寫"
+# def user_id(message):
+#     characters = "開始寫"
 
-    for x in range(len(characters)):
-        message = message.replace(characters[x],"")
+#     for x in range(len(characters)):
+#         message = message.replace(characters[x],"")
 
-    return message      
+#     return message      
       
 # def prepare_record(message):
 #     text_list = message.split('\n')   
