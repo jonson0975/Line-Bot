@@ -118,8 +118,8 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token,Carousel_template)
 #     elif "諮商管道" in message:
 #         line_bot_api.reply_message(event.reply_token,TextSendMessage('https://heho.com.tw/archives/163223'))
-#     elif "每日一句" in message:
-#         line_bot_api.reply_message(event.reply_token,TextSendMessage('時常提醒自己是有人愛的、不孤單的，快樂就會油然而生。'))
+    elif "每日一句" in message:
+        line_bot_api.reply_message(event.reply_token,TextSendMessage('時常提醒自己是有人愛的、不孤單的，快樂就會油然而生。'))
 #     elif "查詢" in message:
 #         result = select_record()
 #         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=result))
