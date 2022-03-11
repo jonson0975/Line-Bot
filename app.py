@@ -140,88 +140,6 @@ def handle_message(event):
 #         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=result))
     else:
         line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
-
-# def getHelp():
-#     message = {
-#         "type": "template",
-#         "altText": "this is a carousel template",
-#         "template": {
-#             "type": "carousel",
-#             "columns": [
-#                 {
-#                     "imageBackgroundColor": "#000000",
-#                     "title": "諮商心理師公會全國聯合會",
-#                     "text": "播打:02-2511-8173",
-#                     "defaultAction": {
-#                         "type": "uri",
-#                         "label": "前往首頁",
-#                         "uri": "https://www.tcpu.org.tw/people-area.html"
-#                     },
-#                     "actions": [
-#                         {
-#                             "type": "uri",
-#                             "label": "前往民眾專區",
-#                             "uri": "https://www.tcpu.org.tw/people-area.html"
-#                         }
-#                     ]
-#                 },
-#                 {
-#                     "imageBackgroundColor": "#000000",
-#                     "title": "華人心理治療基金會",
-#                     "text": "播打:02-7700-7866",
-#                     "defaultAction": {
-#                         "type": "uri",
-#                         "label": "前往首頁",
-#                         "uri": "https://www.tip.org.tw/"
-#                     },
-#                     "actions": [
-#                         {
-#                             "type": "uri",
-#                             "label": "我需要面對面諮商",
-#                             "uri": "https://www.tip.org.tw/f2fbooking"
-#                         }
-#                     ]
-#                 },
-#                 {
-#                     "imageBackgroundColor": "#000000",
-#                     "title": "國際生命線台灣總會",
-#                     "text": "播打:1995",
-#                     "defaultAction": {
-#                         "type": "uri",
-#                         "label": "前往首頁",
-#                         "uri": "http://www.life1995.org.tw/content.asp?id=14"
-#                     },
-#                     "actions": [
-#                         {
-#                             "type": "uri",
-#                             "label": "服務項目",
-#                             "uri": "http://www.life1995.org.tw/content.asp?id=8"
-#                         }
-#                     ]
-#                 },
-#                 {
-#                     "imageBackgroundColor": "#000000",
-#                     "title": "張老師基金會",
-#                     "text": "播打:1980",
-#                     "defaultAction": {
-#                         "type": "uri",
-#                         "label": "前往首頁",
-#                         "uri": "http://www.1980.org.tw/web3-20101110/main.php?customerid=3"
-#                     },
-#                     "actions": [
-#                         {
-#                             "type": "uri",
-#                             "label": "使用者專區",
-#                             "uri": "http://www.1980.org.tw/vlr/login-v3.htm"
-#                         }
-#                     ]
-#                 }
-#             ],
-#             "imageAspectRatio": "rectangle",
-#             "imageSize": "cover"
-#         }
-#     }
-#     return message
       
 # def user_id(message):
 #     characters = "開始寫"
@@ -231,48 +149,48 @@ def handle_message(event):
 
 #     return message      
       
-# def prepare_record(message):
-#     text_list = message.split('\n')   
+def prepare_record(message):
+    text_list = message.split('\n')   
 
-#     record_list = []
+    record_list = []
 
-#     for i in text_list[1:]:
-#         temp_list = i.split(" ")
+    for i in text_list[1:]:
+        temp_list = i.split(" ")
 
-#         userid = temp_list[0]
-#         writingdate = temp_list[1]
-#         diary = temp_list[2]
-#         score = diary_to_score(diary)
+        userid = temp_list[0]
+        writingdate = temp_list[1]
+        diary = temp_list[2]
+        score = diary_to_score(diary)
         
-#         record = (userid, writingdate, diary, score)
-#         record_list.append(record)
+        record = (userid, writingdate, diary, score)
+        record_list.append(record)
         
-#     return record_list	
+    return record_list	
 
 # 將資料匯入資料庫
-# def insert_record(record_list):
-#     DATABASE_URL = os.environ["DATABASE_URL"]
+def insert_record(record_list):
+    DATABASE_URL = os.environ["DATABASE_URL"]
     
-#     conn   = psycopg2.connect(DATABASE_URL, sslmode="require")
-#     cursor = conn.cursor()
+    conn   = psycopg2.connect(DATABASE_URL, sslmode="require")
+    cursor = conn.cursor()
 
-#     table_columns = "(userid, writingdate, diary, score)"
-#     postgres_insert_query = f"""INSERT INTO userdiary {table_columns} VALUES (%s,%s,%s,%s)"""
+    table_columns = "(userid, writingdate, diary, score)"
+    postgres_insert_query = f"""INSERT INTO userdiary {table_columns} VALUES (%s,%s,%s,%s)"""
 
-#     try:
-#         cursor.executemany(postgres_insert_query, record_list)
-#     except:
-#         cursor.execute(postgres_insert_query, record_list)
+    try:
+        cursor.executemany(postgres_insert_query, record_list)
+    except:
+        cursor.execute(postgres_insert_query, record_list)
     
-#     conn.commit()
+    conn.commit()
 
-#     # 要回傳的文字
-#     message = f"{cursor.rowcount}筆日記成功新增至日記庫囉"
+    # 要回傳的文字
+    message = f"{cursor.rowcount}筆日記成功新增至日記庫囉"
 
-#     cursor.close()
-#     conn.close()
+    cursor.close()
+    conn.close()
 
-#     return message
+    return message
 
 # 查詢資料
 def select_record():
@@ -321,19 +239,19 @@ def select_record():
 
 #     return content   
 
-# def diary_to_score(diary):
-#     cc = OpenCC('tw2sp')
-#     a = cc.convert(diary)
-#     sentence = re.split('，|。|…', a)
-#     s_list = []
-#     for i in sentence:
-#         s = SnowNLP(i)
-#         s_senti = s.sentiments
-#         s_round_senti = round(s_senti, 1)
-#         s_list.append(s_round_senti)
-#     score = round(statistics.mean(s_list), 1)
+def diary_to_score(diary):
+    cc = OpenCC('tw2sp')
+    a = cc.convert(diary)
+    sentence = re.split('，|。|…', a)
+    s_list = []
+    for i in sentence:
+        s = SnowNLP(i)
+        s_senti = s.sentiments
+        s_round_senti = round(s_senti, 1)
+        s_list.append(s_round_senti)
+    score = round(statistics.mean(s_list), 1)
     
-#     return score
+    return score
    
 #主程式
 if __name__ == "__main__":
