@@ -10,6 +10,7 @@ import statistics
 import psycopg2
 import re
 import os
+from PIL import Image, ImageFont, ImageDraw
 
 app = Flask(__name__)
  
