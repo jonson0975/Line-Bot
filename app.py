@@ -136,7 +136,7 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token, image_message)
     elif "文字" in message:
         message = linebot_pic(message)
-        img = Image.open('https://github.com/jonson0975/Line-Bot/blob/main/static/pic_for_linebot.jpg?raw=true')
+        img = Image.open(requests.get('https://github.com/jonson0975/Line-Bot/blob/main/static/pic_for_linebot.jpg?raw=true', stream=True).raw)
         font = ImageFont.truetype('NotoSansTC-Regular.otf', 90)
         draw = ImageDraw.Draw(img)
         draw.text((50,100), message, fill=(0,0,0), font=font)  # 使用 h-100 定位到下方
