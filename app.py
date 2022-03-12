@@ -10,6 +10,7 @@ import statistics
 import psycopg2
 import re
 import os
+import requests
 from PIL import Image, ImageFont, ImageDraw
 
 app = Flask(__name__)
@@ -135,7 +136,7 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token, image_message)
     elif "文字" in message:
         message = linebot_pic(message)
-        img = Image.open('./static/pic_for_linebot.jpg')
+        img = Image.open('https://github.com/jonson0975/Line-Bot/blob/main/static/pic_for_linebot.jpg?raw=true')
         font = ImageFont.truetype('NotoSansTC-Regular.otf', 90)
         draw = ImageDraw.Draw(img)
         draw.text((50,100), message, fill=(0,0,0), font=font)  # 使用 h-100 定位到下方
