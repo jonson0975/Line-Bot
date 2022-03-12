@@ -133,6 +133,13 @@ def handle_message(event):
             preview_image_url='https://github.com/jonson0975/Line-Bot/blob/main/static/table.JPG?raw=true'
         )
         line_bot_api.reply_message(event.reply_token, image_message)
+    elif "文字" in message:
+        message = linebot_pic(message)
+        img = Image.open('./static/pic_for_linebot.jpg')
+        font = ImageFont.truetype('NotoSansTC-Regular.otf', 90)
+        draw = ImageDraw.Draw(img)
+        draw.text((50,100), message, fill=(0,0,0), font=font)  # 使用 h-100 定位到下方
+        img.save('./static/ok.jpg')
 #     elif "開始寫" in message:
 #         link = 'http://10.1.4.189:5000/app_test/{}'
 #         message = {user_id(message)}
@@ -142,13 +149,21 @@ def handle_message(event):
     else:
         line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
       
-# def user_id(message):
-#     characters = "開始寫"
+def user_id(message):
+    characters = "開始寫"
 
-#     for x in range(len(characters)):
-#         message = message.replace(characters[x],"")
+    for x in range(len(characters)):
+        message = message.replace(characters[x],"")
 
-#     return message      
+    return message
+   
+def linebot_pic(message):
+    characters = "文字"
+
+    for x in range(len(characters)):
+        message = message.replace(characters[x],"")
+
+    return message
       
 def prepare_record(message):
     text_list = message.split('\n')   
