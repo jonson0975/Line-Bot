@@ -6,3 +6,4 @@ snownlp
 opencc
 statistics
 Pillow
+requests
